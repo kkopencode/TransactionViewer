@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Transaction Viewer</string>
+    <plurals name="transaction_count">
+        <item quantity="one">%d transaction</item>
+        <item quantity="other">%d transactions</item>
+    </plurals>
+</resources>
