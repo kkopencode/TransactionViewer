@@ -37,6 +37,18 @@ public class CurrencyConverterTest {
         assertThat( amountInGbp, is( equalTo( new BigDecimal("0.77") )));
     }
 
+    @Test
+    public void convert_FromToSameCurrency_ReturnInputAmount() throws RateNotFoundException {
+        FxRates fxRates = mock(FxRates.class);
+        CurrencyConverter converter = new CurrencyConverter(fxRates);
+
+        when(fxRates.getRate("USD","GBP")).thenReturn(new BigDecimal("0.77"));
+        BigDecimal amountFrom = new BigDecimal("3");
+        BigDecimal amountTo = converter.convert(amountFrom, "USD", "USD");
+
+        assertThat( amountFrom, is( equalTo( amountTo )));
+    }
+
     @Test(expected = RateNotFoundException.class)
     public void convert_CurrencyNotCoveredInSuppliedRate_ThrowException() throws RateNotFoundException {
         FxRates fxRates = mock(FxRates.class);

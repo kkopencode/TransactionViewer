@@ -4,6 +4,9 @@ import android.content.Context;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Currency;
 
 /**
  * Created by kelvinko on 6/11/2016.
@@ -24,5 +27,19 @@ public class Util {
         }
 
         return content;
+    }
+
+
+    public static String formatCurrencyString(BigDecimal amount, String currencyCode) {
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        Currency currency = Currency.getInstance(currencyCode);
+
+        if (currency == null) {
+            return currencyCode + " " + amount;
+        } else {
+            format.setCurrency(currency);
+            format.setMaximumFractionDigits(AppConst.CURRENCY_DECIMAL_PLACE);
+            return format.format(amount);
+        }
     }
 }

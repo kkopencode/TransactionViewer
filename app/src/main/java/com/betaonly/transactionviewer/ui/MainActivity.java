@@ -1,12 +1,16 @@
-package com.betaonly.transactionviewer;
+package com.betaonly.transactionviewer.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
+import com.betaonly.transactionviewer.R;
+import com.betaonly.transactionviewer.model.Product;
+import com.betaonly.transactionviewer.repos.TransactionDataSource;
+
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,8 +26,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         ButterKnife.bind(this);
 
+        setupActionBar();
         setupProductListView();
 
+    }
+
+    private void setupActionBar() {
+        getSupportActionBar().setTitle(getString(R.string.main_activity_title));
     }
 
     private void setupProductListView() {
@@ -31,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mProductRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<Product> products = TransactionDataSource.getInstance().getProducts(this);
+        Collections.sort(products);
         ProductAdapter adapter = new ProductAdapter(this, products, new ProductAdapter.ProductClickListener() {
             @Override
             public void onProductClick(Product product) {

@@ -1,7 +1,11 @@
-package com.betaonly.transactionviewer;
+package com.betaonly.transactionviewer.repos;
 
 import android.content.Context;
 
+import com.betaonly.transactionviewer.AppConst;
+import com.betaonly.transactionviewer.model.Product;
+import com.betaonly.transactionviewer.model.Transaction;
+import com.betaonly.transactionviewer.Util;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -17,6 +21,7 @@ import java.util.Map;
 public class TransactionDataSource {
 
     private static TransactionDataSource sInstance = new TransactionDataSource();
+
     private List<Transaction> mTransactions = null;
     private List<Product> mProducts = null;
     private Map<String, List<Transaction>> mTransactionMap = new HashMap<>();
@@ -27,6 +32,7 @@ public class TransactionDataSource {
     }
 
     private TransactionDataSource() {
+        // empty private constructor
     }
 
     public List<Transaction> getTransactions(Context context) {
@@ -44,7 +50,9 @@ public class TransactionDataSource {
             productTransactions = new ArrayList<>();
             List<Transaction> transactions = getTransactions(context);
             for(Transaction t : transactions) {
-                productTransactions.add(t);
+                if (t.getSku().equals(sku)) {
+                    productTransactions.add(t);
+                }
             }
             mTransactionMap.put(sku, productTransactions);
         }
@@ -68,7 +76,7 @@ public class TransactionDataSource {
         return mProducts;
     }
     private Transaction[] readTransactionFromFile(Context context) {
-        String content = Util.loadAssetFile(context, AppConst.DATA_SET + "/transactions.json");
+        String content = Util.loadAssetFile(context, AppConst.DEFAULT_TRANSACTION_FILE);
         Transaction[] transactions = mGson.fromJson(content, Transaction[].class);
         return transactions;
     }

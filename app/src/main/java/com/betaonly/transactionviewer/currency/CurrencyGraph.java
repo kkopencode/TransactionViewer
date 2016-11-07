@@ -1,4 +1,4 @@
-package com.betaonly.transactionviewer;
+package com.betaonly.transactionviewer.currency;
 
 import java.math.BigDecimal;
 import java.util.ArrayDeque;

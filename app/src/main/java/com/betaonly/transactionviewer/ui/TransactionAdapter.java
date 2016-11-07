@@ -1,16 +1,23 @@
-package com.betaonly.transactionviewer;
+package com.betaonly.transactionviewer.ui;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.betaonly.transactionviewer.AppConst;
+import com.betaonly.transactionviewer.R;
+import com.betaonly.transactionviewer.model.Transaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.betaonly.transactionviewer.Util.formatCurrencyString;
 
 /**
  * Created by kelvinko on 6/11/2016.
@@ -19,7 +26,9 @@ import butterknife.ButterKnife;
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
 
     List<Transaction> mTransactions;
-    public TransactionAdapter(List<Transaction> transactions) {
+    Context mContext;
+    public TransactionAdapter(Context context, List<Transaction> transactions) {
+        mContext = context;
         mTransactions = new ArrayList<>(transactions);
     }
 
@@ -34,11 +43,18 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(TransactionViewHolder holder, int position) {
         Transaction transaction = mTransactions.get(position);
-        String amountStr = transaction.getCurrency() + transaction.getAmount();
+        String amountStr = formatCurrencyString(transaction.getAmount(), transaction.getCurrency());
         holder.amount.setText(amountStr);
 
-        String amountGbpStr = transaction.getCurrency() + transaction.getAmount();
-        holder.amountGbp.setText(amountGbpStr);
+        if (transaction.getConvertedCurrency().equals(AppConst.CANNOT_CONVERT)) {
+            holder.amountConverted.setText(
+                    mContext.getString(R.string.cannot_converted_to, AppConst.HOME_CURRENCY));
+        } else {
+
+            String amountConvertedStr = formatCurrencyString(transaction.getConvertedAmount(),
+                    transaction.getConvertedCurrency());
+            holder.amountConverted.setText(amountConvertedStr);
+        }
     }
 
     @Override
@@ -48,7 +64,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public static class TransactionViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.amount) TextView amount;
-        @BindView(R.id.amount_in_gbp) TextView amountGbp;
+        @BindView(R.id.amount_converted) TextView amountConverted;
 
         public TransactionViewHolder(View itemView) {
             super(itemView);

@@ -1,7 +1,6 @@
 package com.betaonly.transactionviewer.currency;
 
 import com.betaonly.transactionviewer.AppConst;
-import com.betaonly.transactionviewer.CurrencyGraph;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,6 +23,11 @@ public class CurrencyConverter {
     }
 
     public BigDecimal convert(BigDecimal amount, String from, String to) throws RateNotFoundException {
+
+        // If from and to are the same, just return the origina amount
+        if (from.equalsIgnoreCase(to)) {
+            return amount;
+        }
 
         // try to get the rate from supplied currency pairs
         BigDecimal rate = mFxRates.getRate( from, to );

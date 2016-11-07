@@ -4,4 +4,9 @@
         <item quantity="one">%d transaction</item>
         <item quantity="other">%d transactions</item>
     </plurals>
+    <string name="transaction_activity_title">Transactions for %s</string>
+    <string name="transaction_total">Total: %s</string>
+    <string name="main_activity_title">Products</string>
+    <string name="cannot_converted_to">Cannot converted to %s</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.betaonly.transactionviewer;
+package com.betaonly.transactionviewer.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.betaonly.transactionviewer.model.Product;
+import com.betaonly.transactionviewer.R;
 
 import java.util.ArrayList;
 import java.util.List;

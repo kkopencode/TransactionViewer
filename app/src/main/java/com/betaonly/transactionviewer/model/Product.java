@@ -1,9 +1,9 @@
-package com.betaonly.transactionviewer;
+package com.betaonly.transactionviewer.model;
 
 /**
  * Created by kelvinko on 6/11/2016.
  */
-public class Product {
+public class Product implements Comparable<Product>{
 
     private String mSku;
     private int mTransactionCount;
@@ -23,5 +23,10 @@ public class Product {
 
     public void increaseTransactionCount() {
         mTransactionCount++;
+    }
+
+    @Override
+    public int compareTo(Product another) {
+        return this.getSku().compareTo(another.getSku());
     }
 }

@@ -1,7 +1,6 @@
 package com.betaonly.transactionviewer.currency;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ public class FxRates {
 
     private Map<String, BigDecimal> mPairMap;
     private List<CurrencyPair> mPairs;
-    public FxRates(ArrayList<CurrencyPair> pairs) {
+    public FxRates(List<CurrencyPair> pairs) {
         mPairs = pairs;
         mPairMap = new HashMap<>();
         for(CurrencyPair pair : pairs) {
