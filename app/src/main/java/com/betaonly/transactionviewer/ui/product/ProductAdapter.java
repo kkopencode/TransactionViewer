@@ -1,4 +1,4 @@
-package com.betaonly.transactionviewer.ui;
+package com.betaonly.transactionviewer.ui.product;
 
 import android.content.Context;
 import android.content.res.Resources;

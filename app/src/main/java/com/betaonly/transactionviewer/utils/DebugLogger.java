@@ -1,7 +1,9 @@
-package com.betaonly.transactionviewer;
+package com.betaonly.transactionviewer.utils;
 
 import android.os.Environment;
 import android.util.Log;
+
+import com.betaonly.transactionviewer.BuildConfig;
 
 import java.io.BufferedWriter;
 import java.io.File;

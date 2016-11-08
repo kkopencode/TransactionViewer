@@ -1,6 +1,8 @@
-package com.betaonly.transactionviewer;
+package com.betaonly.transactionviewer.utils;
 
 import android.content.Context;
+
+import com.betaonly.transactionviewer.AppConst;
 
 import java.io.IOException;
 import java.io.InputStream;

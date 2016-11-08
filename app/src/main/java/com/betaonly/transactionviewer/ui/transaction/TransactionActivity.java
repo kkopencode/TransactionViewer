@@ -20,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.betaonly.transactionviewer.Util.formatCurrencyString;
+import static com.betaonly.transactionviewer.utils.Util.formatCurrencyString;
 
 public class TransactionActivity extends AppCompatActivity implements TransactionView{
 
@@ -96,7 +96,7 @@ public class TransactionActivity extends AppCompatActivity implements Transactio
     }
 
     @Override
-    public void showConvertedTransaction(List<Transaction> transactions) {
+    public void showConvertedTransactions(List<Transaction> transactions) {
         TransactionAdapter adapter = new TransactionAdapter(this, transactions);
         mTransactionRecyclerView.setAdapter(adapter);
     }

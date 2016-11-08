@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.betaonly.transactionviewer.AppConst;
-import com.betaonly.transactionviewer.DebugLogger;
 import com.betaonly.transactionviewer.R;
 import com.betaonly.transactionviewer.model.Transaction;
 
@@ -18,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.betaonly.transactionviewer.Util.formatCurrencyString;
+import static com.betaonly.transactionviewer.utils.Util.formatCurrencyString;
 
 /**
  * Created by kelvinko on 6/11/2016.

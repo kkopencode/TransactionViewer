@@ -9,18 +9,21 @@ import android.widget.Toast;
 
 import com.betaonly.transactionviewer.R;
 import com.betaonly.transactionviewer.model.Product;
-import com.betaonly.transactionviewer.repos.TransactionDataSource;
+import com.betaonly.transactionviewer.ui.product.ProductAdapter;
+import com.betaonly.transactionviewer.ui.product.ProductController;
+import com.betaonly.transactionviewer.ui.product.ProductView;
 import com.betaonly.transactionviewer.ui.transaction.TransactionActivity;
 
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProductView {
 
     @BindView(R.id.product_list) RecyclerView mProductRecyclerView;
+
+    ProductController mController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,21 +31,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         ButterKnife.bind(this);
 
-        initTransactionDataSource();
         setupActionBar();
         setupProductListView();
 
+        mController = new ProductController(getApplicationContext(), this);
     }
 
-    private void initTransactionDataSource() {
-        try {
-            TransactionDataSource.getInstance().init(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, R.string.fail_to_load_transaction_from_transactions_json,
-                    Toast.LENGTH_LONG).show();
-        }
-    }
+    /*********************************
+     * Setup Android view components
+     *********************************/
 
     private void setupActionBar() {
         getSupportActionBar().setTitle(getString(R.string.main_activity_title));
@@ -51,22 +48,32 @@ public class MainActivity extends AppCompatActivity {
     private void setupProductListView() {
         mProductRecyclerView.setHasFixedSize(true);
         mProductRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-        List<Product> products = TransactionDataSource.getInstance().getProducts();
-        Collections.sort(products);
+
+    /*********************************
+     * View actions
+     *********************************/
+
+    @Override
+    public void onLoadTransactionsJsonFail() {
+        Toast.makeText(this, R.string.fail_to_load_transaction_from_transactions_json,
+                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showProducts(List<Product> products) {
         ProductAdapter adapter = new ProductAdapter(this, products, new ProductAdapter.ProductClickListener() {
             @Override
             public void onProductClick(Product product) {
-                showTransactions(product.getSku());
+                goToTransactionDetails(product.getSku());
             }
         });
         mProductRecyclerView.setAdapter(adapter);
-
     }
 
-    private void showTransactions(String sku) {
+    private void goToTransactionDetails(String sku) {
         Intent intent = TransactionActivity.create(this, sku);
         startActivity(intent);
     }
-
 }

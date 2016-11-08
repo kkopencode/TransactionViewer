@@ -3,8 +3,8 @@ package com.betaonly.transactionviewer.repos;
 import android.content.Context;
 
 import com.betaonly.transactionviewer.AppConst;
-import com.betaonly.transactionviewer.DebugLogger;
-import com.betaonly.transactionviewer.Util;
+import com.betaonly.transactionviewer.utils.DebugLogger;
+import com.betaonly.transactionviewer.utils.Util;
 import com.betaonly.transactionviewer.model.Product;
 import com.betaonly.transactionviewer.model.Transaction;
 import com.google.gson.Gson;

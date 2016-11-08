@@ -50,7 +50,7 @@ public class TransactionController {
         List<Transaction> transactions = TransactionDataSource.getInstance().getTransactions(sku);
         BigDecimal total = convertTransactionToHomeCurrency(transactions, mHomeCurrency);
         mView.showTotalConvertedAmount(total, mHomeCurrency);
-        mView.showConvertedTransaction(transactions);
+        mView.showConvertedTransactions(transactions);
     }
 
     /**

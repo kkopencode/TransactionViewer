@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface TransactionView {
     void onLoadRatesJsonFail();
-    void showConvertedTransaction(List<Transaction> transactions);
+    void showConvertedTransactions(List<Transaction> transactions);
     void showTotalConvertedAmount(BigDecimal amount, String currency);
 }

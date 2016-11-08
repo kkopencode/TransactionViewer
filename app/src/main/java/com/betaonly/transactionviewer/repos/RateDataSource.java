@@ -3,7 +3,7 @@ package com.betaonly.transactionviewer.repos;
 import android.content.Context;
 
 import com.betaonly.transactionviewer.AppConst;
-import com.betaonly.transactionviewer.Util;
+import com.betaonly.transactionviewer.utils.Util;
 import com.betaonly.transactionviewer.currency.CurrencyPair;
 import com.betaonly.transactionviewer.model.Rate;
 import com.google.gson.Gson;
