@@ -4,7 +4,9 @@
 The app is aim at helping the executives to monitor every product that the company trades with and the and the sales of those products. This app is built for Android code test. For demo purpose, the data are stored in json file instead of fetching from server.
 
 ## Structure
-This applicaton consist of two screens and will load the transactons data and currency exchange rate in assets folder. 
+This applicaton consist of two screens and will load the transactons data and currency exchange rate in assets folder.
+  - assets/rates.json
+  - assets/transactions.json
 
 The Main screen will list all the products and show the count of the transactions of that product. Click on individual product will show the transaction details.
 
