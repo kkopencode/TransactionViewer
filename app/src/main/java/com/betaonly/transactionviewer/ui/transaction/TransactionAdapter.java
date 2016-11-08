@@ -1,4 +1,4 @@
-package com.betaonly.transactionviewer.ui;
+package com.betaonly.transactionviewer.ui.transaction;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.betaonly.transactionviewer.AppConst;
+import com.betaonly.transactionviewer.DebugLogger;
 import com.betaonly.transactionviewer.R;
 import com.betaonly.transactionviewer.model.Transaction;
 
@@ -24,6 +25,8 @@ import static com.betaonly.transactionviewer.Util.formatCurrencyString;
  */
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
+
+    private static final String TAG = TransactionAdapter.class.getSimpleName();
 
     List<Transaction> mTransactions;
     Context mContext;
@@ -46,11 +49,13 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         String amountStr = formatCurrencyString(transaction.getAmount(), transaction.getCurrency());
         holder.amount.setText(amountStr);
 
+        // Show cannot convert text if rate cannot be calculated from supplied rates
         if (transaction.getConvertedCurrency().equals(AppConst.CANNOT_CONVERT)) {
             holder.amountConverted.setText(
                     mContext.getString(R.string.cannot_converted_to, AppConst.HOME_CURRENCY));
-        } else {
 
+        // Otherwise, Show the converted currency
+        } else {
             String amountConvertedStr = formatCurrencyString(transaction.getConvertedAmount(),
                     transaction.getConvertedCurrency());
             holder.amountConverted.setText(amountConvertedStr);

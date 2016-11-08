@@ -3,6 +3,7 @@ package com.betaonly.transactionviewer.repos;
 import android.content.Context;
 
 import com.betaonly.transactionviewer.AppConst;
+import com.betaonly.transactionviewer.DebugLogger;
 import com.betaonly.transactionviewer.Util;
 import com.betaonly.transactionviewer.model.Product;
 import com.betaonly.transactionviewer.model.Transaction;
@@ -49,9 +50,11 @@ public class TransactionDataSource {
     }
 
     public List<Transaction> getTransactions(String sku) {
+        DebugLogger.d("getTransactions sku:" + sku);
         List<Transaction> productTransactions = mTransactionMap.get(sku);
         if (productTransactions == null) {
             productTransactions = new ArrayList<>();
+
             List<Transaction> transactions = getTransactions();
             for(Transaction t : transactions) {
                 if (t.getSku().equals(sku)) {
@@ -60,6 +63,7 @@ public class TransactionDataSource {
             }
             mTransactionMap.put(sku, productTransactions);
         }
+
         return productTransactions;
     }
 

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.betaonly.transactionviewer.R;
 import com.betaonly.transactionviewer.model.Product;
 import com.betaonly.transactionviewer.repos.TransactionDataSource;
+import com.betaonly.transactionviewer.ui.transaction.TransactionActivity;
 
 import java.util.Collections;
 import java.util.List;

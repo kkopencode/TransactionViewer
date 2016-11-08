@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.TransactionActivity"
+            android:name=".ui.transaction.TransactionActivity"
             android:parentActivityName=".ui.MainActivity">
 
         </activity>
