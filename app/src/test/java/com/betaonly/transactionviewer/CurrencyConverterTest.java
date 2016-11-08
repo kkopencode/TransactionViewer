@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import junitparams.JUnitParamsRunner;
@@ -78,6 +79,7 @@ public class CurrencyConverterTest {
         BigDecimal amountInSource = new BigDecimal("1");
         BigDecimal amountInTarget = converter.convert(amountInSource, from, to);
 
+        amountInTarget = amountInTarget.setScale(AppConst.CURRENCY_DECIMAL_PLACE, RoundingMode.HALF_UP);
         assertThat(amountInTarget, is( equalTo( expectedRate ) ));
     }
     private Object suppliedRates_ConversionPair_ExpectedAmount() {
