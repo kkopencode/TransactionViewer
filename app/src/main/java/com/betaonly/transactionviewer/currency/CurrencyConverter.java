@@ -36,7 +36,7 @@ public class CurrencyConverter {
             rate = calculateRate( from, to );
         }
 
-        // If cannot induce it from supplied information, throw exception
+        // If cannot calculate it from supplied information, throw exception
         if (rate == null) throw new RateNotFoundException();
 
         BigDecimal converted = amount.multiply( rate );

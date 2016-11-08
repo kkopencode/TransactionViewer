@@ -33,6 +33,6 @@ public class FxRates {
     }
 
     public BigDecimal getRate(String from, String to) {
-        return mPairMap.get( from.toUpperCase() + to.toUpperCase() );
+        return mPairMap.get( from + to );
     }
 }

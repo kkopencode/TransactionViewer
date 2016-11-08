@@ -34,7 +34,9 @@ public class RateDataSource {
             mRates = new ArrayList<>();
             Rate[] rates = readRateFromFile(context);
             for(Rate rate : rates) {
-                mRates.add(new CurrencyPair(rate.getFrom(), rate.getTo(), rate.getRate()));
+                mRates.add(new CurrencyPair(rate.getFrom().toUpperCase(),
+                        rate.getTo().toUpperCase(),
+                        rate.getRate()));
             }
             inited = true;
         }
