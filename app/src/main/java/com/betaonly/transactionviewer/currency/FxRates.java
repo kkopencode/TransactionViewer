@@ -19,9 +19,11 @@ public class FxRates {
     public FxRates(List<CurrencyPair> pairs) {
         mPairs = pairs;
         mPairMap = new HashMap<>();
-        for(CurrencyPair pair : pairs) {
-            mPairMap.put(pair.getFrom().toUpperCase() + pair.getTo().toUpperCase(),
-                    pair.getRate());
+        if (pairs != null) {
+            for (CurrencyPair pair : pairs) {
+                mPairMap.put(pair.getFrom().toUpperCase() + pair.getTo().toUpperCase(),
+                        pair.getRate());
+            }
         }
 
     }

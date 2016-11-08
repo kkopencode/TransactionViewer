@@ -20,6 +20,7 @@ public class RateDataSource {
     private static RateDataSource sInstance = new RateDataSource();
     private Gson mGson = new Gson();
     private List<CurrencyPair> mRates;
+    private boolean inited = false;
     private RateDataSource() {
         // empty private constructor
     }
@@ -28,20 +29,27 @@ public class RateDataSource {
         return sInstance;
     }
 
-    public List<CurrencyPair> getRates(Context context) {
-        if (mRates == null) {
+    public void init(Context context) throws Exception {
+        if (!inited) {
             mRates = new ArrayList<>();
             Rate[] rates = readRateFromFile(context);
             for(Rate rate : rates) {
                 mRates.add(new CurrencyPair(rate.getFrom(), rate.getTo(), rate.getRate()));
             }
+            inited = true;
         }
+    }
+
+    public List<CurrencyPair> getRates() {
         return mRates;
     }
 
-    private Rate[] readRateFromFile(Context context) {
+    // TODO: better exception handling, currently just report unable to load the data on any error
+    private Rate[] readRateFromFile(Context context) throws Exception {
         String content = Util.loadAssetFile(context, AppConst.DEFAULT_RATE_FILE);
-        Rate[] rates = mGson.fromJson(content, Rate[].class);
+        Rate[] rates;
+        rates = mGson.fromJson(content, Rate[].class);
+
         return rates;
     }
 }

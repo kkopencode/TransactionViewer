@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.betaonly.transactionviewer.R;
 import com.betaonly.transactionviewer.model.Product;
@@ -26,9 +27,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         ButterKnife.bind(this);
 
+        initTransactionDataSource();
         setupActionBar();
         setupProductListView();
 
+    }
+
+    private void initTransactionDataSource() {
+        try {
+            TransactionDataSource.getInstance().init(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, R.string.fail_to_load_transaction_from_transactions_json,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setupActionBar() {
@@ -39,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mProductRecyclerView.setHasFixedSize(true);
         mProductRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Product> products = TransactionDataSource.getInstance().getProducts(this);
+        List<Product> products = TransactionDataSource.getInstance().getProducts();
         Collections.sort(products);
         ProductAdapter adapter = new ProductAdapter(this, products, new ProductAdapter.ProductClickListener() {
             @Override

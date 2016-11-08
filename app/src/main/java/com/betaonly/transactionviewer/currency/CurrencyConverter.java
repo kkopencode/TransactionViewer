@@ -1,9 +1,6 @@
 package com.betaonly.transactionviewer.currency;
 
-import com.betaonly.transactionviewer.AppConst;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -17,8 +14,10 @@ public class CurrencyConverter {
         mFxRates = fxRates;
         mCurrencyGraph = new CurrencyGraph();
         List<CurrencyPair> pairs = fxRates.getCurrencyPairs();
-        for(CurrencyPair pair : pairs) {
-            mCurrencyGraph.addEdge(pair.getFrom(), pair.getTo(), pair.getRate());
+        if (pairs != null) {
+            for (CurrencyPair pair : pairs) {
+                mCurrencyGraph.addEdge(pair.getFrom(), pair.getTo(), pair.getRate());
+            }
         }
     }
 
@@ -41,7 +40,7 @@ public class CurrencyConverter {
 
         BigDecimal converted = amount.multiply( rate );
 
-        return converted.setScale( AppConst.CURRENCY_DECIMAL_PLACE, RoundingMode.HALF_UP );
+        return converted;
     }
 
     private BigDecimal calculateRate( String from, String to ) {

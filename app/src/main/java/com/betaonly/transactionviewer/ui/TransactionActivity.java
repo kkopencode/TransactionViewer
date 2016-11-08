@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.betaonly.transactionviewer.AppConst;
 import com.betaonly.transactionviewer.R;
@@ -30,6 +31,7 @@ import static com.betaonly.transactionviewer.Util.formatCurrencyString;
 
 public class TransactionActivity extends AppCompatActivity {
 
+    private static final String TAG = TransactionActivity.class.getSimpleName();
     private static final String EXTRA_SKU = TransactionActivity.class.getName() + ".SKU";
 
     private String mSku;
@@ -47,8 +49,8 @@ public class TransactionActivity extends AppCompatActivity {
         setContentView(R.layout.transaction_activity);
         ButterKnife.bind(this);
 
-        FxRates rates = new FxRates(RateDataSource.getInstance().getRates(this));
-        mCurrencyConverter = new CurrencyConverter(rates);
+        initRatesDataSource();
+        initCurrencyConverter();
         handleIntent(getIntent());
 
         setupActionBar();
@@ -67,10 +69,29 @@ public class TransactionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void initRatesDataSource() {
+        try {
+            RateDataSource.getInstance().init(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, R.string.fail_to_load_transaction_from_rates_json,
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void initCurrencyConverter() {
+        FxRates rates = new FxRates(RateDataSource.getInstance().getRates());
+        mCurrencyConverter = new CurrencyConverter(rates);
+    }
+
     private void handleIntent(Intent intent) {
         mSku = intent.getStringExtra(EXTRA_SKU);
-        Log.e("TAG", "sku"+mSku);
-        mTransactions = TransactionDataSource.getInstance().getTransactions(this, mSku);
+        handleTransactions();
+    }
+
+    private void handleTransactions() {
+        Log.d(TAG, "sku:"+mSku);
+        mTransactions = TransactionDataSource.getInstance().getTransactions(mSku);
         for(Transaction t : mTransactions) {
             try {
                 BigDecimal converted = mCurrencyConverter.convert(t.getAmount(),
@@ -84,8 +105,6 @@ public class TransactionActivity extends AppCompatActivity {
                 t.setConvertedCurrency(AppConst.CANNOT_CONVERT);
             }
         }
-        Log.e("TAG", "mTransactions"+mTransactions.size());
-
     }
 
     private void setupActionBar() {

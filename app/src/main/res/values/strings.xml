@@ -8,5 +8,11 @@
     <string name="transaction_total">Total: %s</string>
     <string name="main_activity_title">Products</string>
     <string name="cannot_converted_to">Cannot converted to %s</string>
+    <string name="fail_to_load_transaction_from_transactions.json">
+        Fail to load transaction from transactions.json
+    </string>
+    <string name="fail_to_load_transaction_from_rates.json">
+        Fail to load rates from rates.json
+    </string>
 
 </resources>

@@ -13,18 +13,15 @@ import java.util.Currency;
  */
 
 public class Util {
-    public static String loadAssetFile(Context context, String filename) {
+    public static String loadAssetFile(Context context, String filename) throws IOException {
         String content = null;
-        try {
-            InputStream is = context.getAssets().open(filename);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            content = new String(buffer, "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        InputStream is = context.getAssets().open(filename);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        content = new String(buffer, "UTF-8");
 
         return content;
     }
