@@ -21,7 +21,7 @@ Here is the logic for currency rate conversion
 
   * A directed graph (see assumption 1) will be created from the supplied rates. Currency is the Node and connected by "From", "To" relation in rates.json. 
   * Find the path from source to target currency.
-    * It will find the Shortest Path (see assumption 2) in the graph of the source and target currency in case of multiple path of conversion is available. Breadth-First Search was used to find the shortest path.
+    * It will find the shortest path (see assumption 2) in the graph of the source and target currency in case of multiple path of conversion is available. Breadth-First Search was used to find the shortest path.
   * Convert the currency from source to target currency along the path return from BFS.
 
 For example:  
